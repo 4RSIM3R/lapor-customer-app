@@ -10,7 +10,9 @@ class InquiryListPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text('Inquiry'),
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
       ),
     );
   }

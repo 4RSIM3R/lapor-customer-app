@@ -143,25 +143,6 @@ class _LoginPageState extends State<LoginPage> {
                   isRequiredText: true,
                   prefix: Icon(Icons.key),
                 ),
-                8.verticalSpace,
-                Text.rich(
-                  TextSpan(
-                    text: "Lupa kata sandi ? ",
-                    style: AppStyles.text14Px.copyWith(
-                      color: ColorTheme.black,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: "Klik di sini",
-                        style: AppStyles.text14PxBold.copyWith(
-                          color: ColorTheme.primary,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => context.route.push(const ForgotPasswordRoute()),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

@@ -25,6 +25,7 @@ class _AppPageState extends State<AppPage> {
     return AdaptiveSizer(
       builder: (context) => FlavorBanner(
         child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
           title: Configs.titleApp,
           theme: AppCoreTheme.theme,
           darkTheme: AppCoreTheme.theme,
