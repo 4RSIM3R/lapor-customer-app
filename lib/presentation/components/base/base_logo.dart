@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class BaseLogo extends StatelessWidget {
   const BaseLogo({
-    Key? key,
+    super.key,
     this.isSmall = false,
-  }) : super(key: key);
+  });
 
   final bool isSmall;
 
