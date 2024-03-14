@@ -6,7 +6,7 @@ import '../../theme/theme.dart';
 
 class TextInput extends StatefulWidget {
   const TextInput({
-    Key? key,
+    super.key,
     required this.title,
     required this.formControlName,
     required this.hint,
@@ -17,7 +17,7 @@ class TextInput extends StatefulWidget {
     this.prefix,
     this.suffix,
     this.onChaged,
-  }) : super(key: key);
+  });
 
   final String title;
   final String formControlName;
@@ -60,20 +60,17 @@ class _TextInputState extends State<TextInput> {
               if (widget.isRequiredText)
                 TextSpan(
                   text: "*",
-                  style: CustomTextTheme.caption
-                      .copyWith(color: ColorTheme.statusRed),
+                  style: CustomTextTheme.caption.copyWith(color: ColorTheme.primary),
                 ),
             ],
           ),
-          style:
-              CustomTextTheme.paragraph1.copyWith(fontWeight: FontWeight.w700),
+          style: CustomTextTheme.paragraph1.copyWith(fontWeight: FontWeight.w700),
         ),
         6.verticalSpaceRadius,
         ReactiveTextField(
           keyboardType: widget.textInputType,
           formControlName: widget.formControlName,
-          style: CustomTextTheme.paragraph2
-              .copyWith(color: ColorTheme.neutral[800]),
+          style: CustomTextTheme.paragraph2.copyWith(color: ColorTheme.neutral[800]),
           decoration: GenerateTheme.inputDecoration(widget.hint).copyWith(
             suffixIcon: widget.suffix,
             prefixIcon: widget.prefix,
