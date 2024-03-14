@@ -67,11 +67,10 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: () {
                             FocusManager.instance.primaryFocus?.unfocus();
                             if (widget.isAddAccount) {
-                              context.route.pop();
+                              context.route.maybePop();
                             } else {
                               // context.read<AuthCubit>().login(formG.value);
-                              context.route
-                                  .pushAndPopUntil(const HomeRoute(), predicate: (route) => false);
+                              context.route.pushAndPopUntil(const HomeRoute(), predicate: (route) => false);
                             }
                           },
                           title: "Masuk",
@@ -90,8 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                                 style: AppStyles.text14PxBold.copyWith(
                                   color: ColorTheme.primary,
                                 ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () => context.route.push(const RegisterRoute()),
+                                recognizer: TapGestureRecognizer()..onTap = () {},
                               ),
                             ],
                           ),

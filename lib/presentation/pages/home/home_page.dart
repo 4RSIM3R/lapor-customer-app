@@ -1,9 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:next_starter/common/extensions/context_extension.dart';
 
 import '../../components/components.dart';
-import '../../routes/app_router.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -23,9 +21,7 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: PrimaryButton(
           title: "Go to Post Page",
-          onTap: () {
-            context.route.push(const PostRoute());
-          },
+          onTap: () {},
           width: 200,
           isFullWidth: false,
         ),

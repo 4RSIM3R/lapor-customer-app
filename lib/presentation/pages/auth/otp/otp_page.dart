@@ -17,10 +17,10 @@ import 'widget/resend_otp_timer.dart';
 @RoutePage()
 class OtpPage extends StatelessWidget {
   const OtpPage({
-    Key? key,
+    super.key,
     required this.email,
     this.isResetPassword = false,
-  }) : super(key: key);
+  });
 
   final String email;
   final bool isResetPassword;
@@ -39,10 +39,10 @@ class OtpPage extends StatelessWidget {
 
 class OtpView extends StatefulWidget {
   const OtpView({
-    Key? key,
+    super.key,
     required this.email,
     this.isResetPassword = false,
-  }) : super(key: key);
+  });
 
   final String email;
   final bool isResetPassword;
@@ -85,7 +85,7 @@ class _OtpViewState extends State<OtpView> {
                 icon: Icons.arrow_back_ios_new_rounded,
                 size: 36,
                 onTap: () {
-                  context.router.pop();
+                  context.router.maybePop();
                 },
               ),
               20.verticalSpaceRadius,
@@ -100,8 +100,7 @@ class _OtpViewState extends State<OtpView> {
               Text(
                 'Masukkan kode verifikasi yang kami kirimkan kepada '
                 'Anda di: ${widget.email}',
-                style: CustomTextTheme.paragraph1
-                    .copyWith(color: ColorTheme.neutral[600]),
+                style: CustomTextTheme.paragraph1.copyWith(color: ColorTheme.neutral[600]),
               ),
               20.verticalSpaceRadius,
               ReactivePinPut(
@@ -117,9 +116,7 @@ class _OtpViewState extends State<OtpView> {
                       TextSpan(
                         text: 'Kirim Ulang',
                         style: TextStyle(
-                          color: showResend
-                              ? ColorTheme.primary
-                              : ColorTheme.neutral[800],
+                          color: showResend ? ColorTheme.primary : ColorTheme.neutral[800],
                           fontWeight: showResend ? FontWeight.bold : null,
                         ),
                         recognizer: TapGestureRecognizer()
@@ -133,8 +130,7 @@ class _OtpViewState extends State<OtpView> {
                               : null,
                       ),
                     ],
-                    style: CustomTextTheme.paragraph1
-                        .copyWith(color: ColorTheme.neutral[900]),
+                    style: CustomTextTheme.paragraph1.copyWith(color: ColorTheme.neutral[900]),
                   ),
                 ),
               ),
@@ -156,8 +152,7 @@ class _OtpViewState extends State<OtpView> {
                     orElse: () {},
                     loading: () => context.showLoadingIndicator(),
                     error: (msg) {
-                      context.showSnackbar(
-                          title: "Error", message: msg, error: true);
+                      context.showSnackbar(title: "Error", message: msg, error: true);
                     },
                     success: (msg) {
                       context.hideLoading();
@@ -170,7 +165,6 @@ class _OtpViewState extends State<OtpView> {
                         );
                         return;
                       }
-                      context.route.replace(SuccessRoute(message: msg));
                     },
                     successAdd: (msg) {
                       context.hideLoading();
@@ -201,8 +195,6 @@ class _OtpViewState extends State<OtpView> {
                             //   "email": widget.email,
                             //   "otp": formState.rawValue['otp'],
                             // });
-                            context.route.replace(SuccessRoute(
-                                message: "Berhasil verifikasi OTP"));
                           }
                         },
                         isEnable: formState.valid,
