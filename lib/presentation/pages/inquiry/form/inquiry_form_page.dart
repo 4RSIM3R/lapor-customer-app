@@ -16,6 +16,8 @@ class InquiryFormPage extends StatefulWidget {
 class _InquiryFormPageState extends State<InquiryFormPage> {
   final form = fb.group({
     'title': ['', Validators.required],
+    'site_id': ['', Validators.required],
+    'unit_id': ['', Validators.required],
     'information': ['', Validators.required],
   });
 
@@ -41,6 +43,24 @@ class _InquiryFormPageState extends State<InquiryFormPage> {
                   title: 'Title',
                   formControlName: 'title',
                   hint: 'hint',
+                ),
+                const SizedBox(height: 16),
+                const DropdownInput(
+                  title: 'Site',
+                  formControlName: 'site_id',
+                  hint: 'Choose Site',
+                  items: [
+                    {'text': 'Blok Rokan Hulu', 'value': 1}
+                  ],
+                ),
+                const SizedBox(height: 16),
+                const DropdownInput(
+                  title: 'Unit',
+                  formControlName: 'unit_id',
+                  hint: 'Choose Unit',
+                  items: [
+                    {'text': 'UNIT_123', 'value': 2}
+                  ],
                 ),
                 const SizedBox(height: 16),
                 const TextInput(

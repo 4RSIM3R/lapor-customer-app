@@ -41,24 +41,6 @@ class _TicketListPageState extends State<TicketListPage> {
     }
   }
 
-  Widget _buildCard(AppFlowyGroupItem item) {
-    if (item is TextItem) {
-      return Align(
-        alignment: Alignment.centerLeft,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          child: Text(item.s),
-        ),
-      );
-    }
-
-    if (item is RichTextItem) {
-      return RichTextCard(item: item);
-    }
-
-    throw UnimplementedError();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,41 +63,46 @@ class _TicketListPageState extends State<TicketListPage> {
           return AppFlowyGroupCard(
             margin: const EdgeInsets.symmetric(vertical: 8),
             key: ValueKey(item.id),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('TICKET/12-12-2024/1/KAI', style: CustomTextTheme.paragraph1),
-                  const SizedBox(height: 8),
-                  Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-                    style: CustomTextTheme.caption,
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Chip(
-                        backgroundColor: ColorTheme.primary,
-                        side: BorderSide.none,
-                        label: Text(
-                          groupData.id,
-                          style: CustomTextTheme.paragraph1.copyWith(color: Colors.white),
+            child: InkWell(
+              onTap: () {
+                context.router.push(const TicketDetailRoute());
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('TICKET/12-12-2024/1/KAI', style: CustomTextTheme.paragraph1),
+                    const SizedBox(height: 8),
+                    Text(
+                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+                      style: CustomTextTheme.caption,
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Chip(
+                          backgroundColor: ColorTheme.primary,
+                          side: BorderSide.none,
+                          label: Text(
+                            groupData.id,
+                            style: CustomTextTheme.paragraph1.copyWith(color: Colors.white),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Chip(
-                        backgroundColor: ColorTheme.primary,
-                        side: BorderSide.none,
-                        label: Text(
-                          'Blok Rokan Hulu Riau',
-                          style: CustomTextTheme.paragraph1.copyWith(color: Colors.white),
+                        const SizedBox(width: 8),
+                        Chip(
+                          backgroundColor: ColorTheme.primary,
+                          side: BorderSide.none,
+                          label: Text(
+                            'Blok Rokan Hulu Riau',
+                            style: CustomTextTheme.paragraph1.copyWith(color: Colors.white),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           );
