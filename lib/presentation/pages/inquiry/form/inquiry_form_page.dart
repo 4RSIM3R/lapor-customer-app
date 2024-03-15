@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:next_starter/presentation/components/components.dart';
+import 'package:next_starter/presentation/theme/theme.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 @RoutePage()
@@ -31,11 +32,12 @@ class _InquiryFormPageState extends State<InquiryFormPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Send Inquiry'),
+        backgroundColor: Colors.white,
       ),
       body: ReactiveFormBuilder(
         form: () => form,
         builder: (context, form, child) {
-          return Padding(
+          return SingleChildScrollView(
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
@@ -44,29 +46,29 @@ class _InquiryFormPageState extends State<InquiryFormPage> {
                   formControlName: 'title',
                   hint: 'hint',
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 const DropdownInput(
                   title: 'Site',
                   formControlName: 'site_id',
                   hint: 'Choose Site',
                   items: [
-                    {'text': 'Blok Rokan Hulu', 'value': 1}
+                    {'text': 'Blok Rokan Hulu', 'value': '1'}
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 const DropdownInput(
                   title: 'Unit',
                   formControlName: 'unit_id',
                   hint: 'Choose Unit',
                   items: [
-                    {'text': 'UNIT_123', 'value': 2}
+                    {'text': 'UNIT_123', 'value': '2'}
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 const TextInput(
-                  title: 'Title',
-                  formControlName: 'title',
-                  hint: 'hint',
+                  title: 'Information',
+                  formControlName: 'information',
+                  hint: 'Describe your problem here',
                   maxLines: 5,
                 ),
                 const SizedBox(height: 16),
@@ -79,34 +81,40 @@ class _InquiryFormPageState extends State<InquiryFormPage> {
                     height: 45,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue),
+                      border: Border.all(color: ColorTheme.primary),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: const Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(CupertinoIcons.camera, color: Colors.blue),
+                        Icon(CupertinoIcons.camera, color: ColorTheme.primary),
                         SizedBox(width: 8),
-                        Text('Add Image', style: TextStyle(color: Colors.blue))
+                        Text('Add Image', style: TextStyle(color: ColorTheme.primary))
                       ],
                     ),
                   ),
                 ),
-                Expanded(child: Container()),
-                ReactiveFormConsumer(
-                  builder: (context, form, child) {
-                    return PrimaryButton(
-                      title: 'Submit',
-                      isEnable: form.valid && image != null,
-                      onTap: () {},
-                    );
-                  },
-                )
               ],
             ),
           );
         },
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ReactiveFormBuilder(
+            form: () => form,
+            builder: (context, form, child) {
+              return ReactiveFormConsumer(
+                builder: (context, form, child) {
+                  return PrimaryButton(
+                    title: 'Submit',
+                    isEnable: form.valid && image != null,
+                    onTap: () {},
+                  );
+                },
+              );
+            }),
       ),
     );
   }

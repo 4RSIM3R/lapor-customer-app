@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:next_starter/presentation/routes/app_router.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -51,11 +52,15 @@ class ProfileMainPage extends StatelessWidget {
           const SizedBox(height: 16),
           ListTile(
             contentPadding: EdgeInsets.zero,
+            onTap: () {
+              context.router.push(const ProfileSiteRoute());
+            },
             leading: Container(
-                height: 45,
-                width: 45,
-                decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(30)),
-                child: const Icon(Icons.work, color: Colors.white, size: 22)),
+              height: 45,
+              width: 45,
+              decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(30)),
+              child: const Icon(Icons.work, color: Colors.white, size: 22),
+            ),
             title: Text('Your Sites', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
             subtitle: Text('List of associated Sites', style: CustomTextTheme.paragraph1),
           ),
