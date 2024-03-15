@@ -81,6 +81,7 @@ dependencies:
   appflowy_board: ^0.1.1
   cupertino_stepper: ^0.2.1
   casa_vertical_stepper: ^0.0.5
+  easy_stepper: ^0.8.3
   # lecle_downloads_path_provider: ^0.0.2+8
 
   # Local Database

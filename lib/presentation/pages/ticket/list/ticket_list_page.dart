@@ -44,18 +44,23 @@ class _TicketListPageState extends State<TicketListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(250, 250, 250, 1),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text('Ticket'),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_month)),
         ],
       ),
       body: AppFlowyBoard(
-        groupConstraints: const BoxConstraints(minWidth: 275, maxWidth: 275),
+        groupConstraints: const BoxConstraints(minWidth: 290, maxWidth: 300),
         config: const AppFlowyBoardConfig(
-          groupPadding: EdgeInsets.symmetric(horizontal: 4),
+          groupPadding: EdgeInsets.zero,
+          groupItemPadding: EdgeInsets.only(right: 8),
+          headerPadding: EdgeInsets.symmetric(horizontal: 8),
+          cardPadding: EdgeInsets.symmetric(vertical: 8),
+          cornerRadius: 4,
         ),
         controller: controller,
         boardScrollController: boardScroll,
@@ -68,37 +73,50 @@ class _TicketListPageState extends State<TicketListPage> {
                 context.router.push(const TicketDetailRoute());
               },
               child: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                width: 285,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('TICKET/12-12-2024/1/KAI', style: CustomTextTheme.paragraph1),
-                    const SizedBox(height: 8),
                     Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-                      style: CustomTextTheme.caption,
+                      'TICKET/12-12-2024/1/KAI',
+                      style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        Chip(
-                          backgroundColor: ColorTheme.primary,
-                          side: BorderSide.none,
-                          label: Text(
-                            groupData.id,
-                            style: CustomTextTheme.paragraph1.copyWith(color: Colors.white),
+                        Text(
+                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+                          style: CustomTextTheme.caption,
+                        ).expand(),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
+                          child: Text(
+                            'UNIT_ID_HERE',
+                            style: CustomTextTheme.caption.copyWith(color: Colors.white),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        const SizedBox(width: 8),
-                        Chip(
-                          backgroundColor: ColorTheme.primary,
-                          side: BorderSide.none,
-                          label: Text(
+                        ).expand(),
+                        const SizedBox(width: 4),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
+                          child: Text(
                             'Blok Rokan Hulu Riau',
-                            style: CustomTextTheme.paragraph1.copyWith(color: Colors.white),
+                            style: CustomTextTheme.caption.copyWith(color: Colors.white),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
+                        ).expand(),
                       ],
                     ),
                   ],
@@ -109,11 +127,27 @@ class _TicketListPageState extends State<TicketListPage> {
         },
         headerBuilder: (context, columnData) {
           return AppFlowyGroupHeader(
-            title: Text(
-              columnData.headerData.groupName,
-              style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
+            margin: const EdgeInsets.only(top: 8),
+            title: Row(
+              children: [
+                const SizedBox(width: 8),
+                Text(columnData.headerData.groupName,
+                    style: CustomTextTheme.paragraph3.copyWith(fontWeight: FontWeight.w600)),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: ColorTheme.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Text(
+                    '10',
+                    style: CustomTextTheme.paragraph1.copyWith(color: ColorTheme.primary),
+                  ),
+                )
+              ],
             ),
-            height: 50,
+            height: 42,
           );
         },
       ),

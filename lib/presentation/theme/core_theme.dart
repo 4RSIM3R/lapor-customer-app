@@ -28,7 +28,7 @@ class AppCoreTheme {
     primarySwatch: ColorTheme.neutral,
     scaffoldBackgroundColor: Colors.grey.shade100,
     progressIndicatorTheme: const ProgressIndicatorThemeData(color: ColorTheme.primary),
-    textTheme: GoogleFonts.robotoTextTheme(),
+    textTheme: GoogleFonts.openSansTextTheme(),
     // BottomNavigationBar Theme
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       elevation: 5.0,
