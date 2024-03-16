@@ -1,4 +1,4 @@
 class Configs {
   static const customKey = 'midtransKey';
-  static const titleApp = 'Starter App';
+  static const titleApp = 'Snel Customer';
 }

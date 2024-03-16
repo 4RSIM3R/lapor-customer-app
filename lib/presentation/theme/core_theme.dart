@@ -28,22 +28,16 @@ class AppCoreTheme {
     primarySwatch: ColorTheme.neutral,
     scaffoldBackgroundColor: Colors.grey.shade100,
     progressIndicatorTheme: const ProgressIndicatorThemeData(color: ColorTheme.primary),
-    textTheme: GoogleFonts.openSansTextTheme(),
-    // BottomNavigationBar Theme
+    textTheme: GoogleFonts.interTextTheme(),
+
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       elevation: 5.0,
       backgroundColor: Colors.white,
       showUnselectedLabels: false,
       showSelectedLabels: true,
       selectedIconTheme: IconThemeData(color: ColorTheme.primary),
-      unselectedIconTheme: IconThemeData(
-        color: Colors.grey,
-      ),
+      unselectedIconTheme: IconThemeData(color: Colors.grey),
       selectedLabelStyle: TextStyle(color: ColorTheme.primary),
-      unselectedLabelStyle: TextStyle(
-        color: Colors.grey,
-      ),
-      unselectedItemColor: Colors.white,
       selectedItemColor: ColorTheme.primary,
     ),
     // Bottom AppBar Theme

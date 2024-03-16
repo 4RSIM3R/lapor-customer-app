@@ -66,6 +66,9 @@ class ProfileMainPage extends StatelessWidget {
           ),
           Divider(color: Colors.grey[200]),
           ListTile(
+            onTap: () {
+              context.router.push(const ProfileUnitRoute());
+            },
             contentPadding: EdgeInsets.zero,
             leading: Container(
                 height: 45,
@@ -77,14 +80,17 @@ class ProfileMainPage extends StatelessWidget {
           ),
           Divider(color: Colors.grey[200]),
           ListTile(
+            onTap: () {
+              context.router.push(const ProfileUnitRoute());
+            },
             contentPadding: EdgeInsets.zero,
             leading: Container(
                 height: 45,
                 width: 45,
                 decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(30)),
-                child: const Icon(Icons.data_object, color: Colors.white, size: 22)),
-            title: Text('Analytics', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
-            subtitle: Text('Insight Of Your Data', style: CustomTextTheme.paragraph1),
+                child: const Icon(Icons.phone, color: Colors.white, size: 22)),
+            title: Text('Contact Us', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
+            subtitle: Text("Whenever You're Face The Problem", style: CustomTextTheme.paragraph1),
           )
         ],
       ).p(16),

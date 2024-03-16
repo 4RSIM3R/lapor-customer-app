@@ -2,6 +2,8 @@ import 'package:adaptive_sizer/adaptive_sizer.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flavor/flavor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:month_year_picker/month_year_picker.dart';
 import 'package:next_starter/common/utils/config.dart';
 
 import '../../common/logging/logger.dart';
@@ -35,9 +37,13 @@ class _AppPageState extends State<AppPage> {
               MyObserver(),
             ],
           ),
+          localizationsDelegates: const [
+            GlobalWidgetsLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            MonthYearPickerLocalizations.delegate,
+          ],
           builder: (BuildContext context, Widget? child) {
-            ErrorWidget.builder =
-                (FlutterErrorDetails details) => AppErrorView(details: details);
+            ErrorWidget.builder = (FlutterErrorDetails details) => AppErrorView(details: details);
             return child!;
           },
         ),
