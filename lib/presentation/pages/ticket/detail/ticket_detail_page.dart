@@ -66,8 +66,10 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                 children: [
                   Text('Action', style: CustomTextTheme.paragraph1),
                   const SizedBox(height: 4),
-                  Text('Fixing Broken Pipe In Sector',
-                      style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
+                  Text(
+                    'Fixing Broken Pipe In Sector',
+                    style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
+                  ),
                   const SizedBox(height: 8),
                   Text('Employee', style: CustomTextTheme.paragraph1),
                   const SizedBox(height: 4),

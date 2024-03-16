@@ -1,6 +1,7 @@
 import 'package:appflowy_board/appflowy_board.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:next_starter/presentation/components/button/primary_button.dart';
 import 'package:next_starter/presentation/pages/ticket/list/widgets/text_item.dart';
 import 'package:next_starter/presentation/routes/app_router.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
@@ -34,7 +35,7 @@ class _TicketListPageState extends State<TicketListPage> {
       controller.addGroup(AppFlowyGroupData(
         id: e,
         name: e.toLowerCase().replaceAll("_", " ").capitalized,
-        items: List.generate(10, (index) => TextItem("asas")),
+        items: List.generate(10, (index) => TextItem("${index}_$e")),
       ));
 
       controller.getGroupController(e)!.enableDragging(false);
@@ -87,38 +88,64 @@ class _TicketListPageState extends State<TicketListPage> {
                       style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Text(
-                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-                          style: CustomTextTheme.caption,
-                        ).expand(),
-                      ],
+                    Text('Action', style: CustomTextTheme.paragraph1),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Fixing Broken Pipe In Sector',
+                      style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                          decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
-                          child: Text(
-                            'UNIT_ID_HERE',
-                            style: CustomTextTheme.caption.copyWith(color: Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ).expand(),
-                        const SizedBox(width: 4),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                          decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
-                          child: Text(
-                            'Blok Rokan Hulu Riau',
-                            style: CustomTextTheme.caption.copyWith(color: Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ).expand(),
-                      ],
-                    ),
+                    Text('Employee', style: CustomTextTheme.paragraph1),
+                    const SizedBox(height: 4),
+                    Text('MR John Doe', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
+                    groupData.id != "ADMIN_APPROVED" ? const SizedBox(height: 8) : const SizedBox.shrink(),
+                    groupData.id != "ADMIN_APPROVED"
+                        ? Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                                decoration:
+                                    BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
+                                child: Text(
+                                  'UNIT_ID_HERE',
+                                  style: CustomTextTheme.caption.copyWith(color: Colors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ).expand(),
+                              const SizedBox(width: 4),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                                decoration:
+                                    BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
+                                child: Text(
+                                  'Blok Rokan Hulu Riau',
+                                  style: CustomTextTheme.caption.copyWith(color: Colors.white),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ).expand(),
+                            ],
+                          )
+                        : Container(),
+                    groupData.id == "ADMIN_APPROVED" ? const SizedBox(height: 8) : const SizedBox.shrink(),
+                    groupData.id == "ADMIN_APPROVED"
+                        ? Row(
+                            children: [
+                              PrimaryButton(
+                                title: 'Reject',
+                                isSmall: true,
+                                backgroundColor: Colors.red,
+                                onTap: () {},
+                              ).expand(),
+                              const SizedBox(width: 4),
+                              PrimaryButton(
+                                title: 'Accept',
+                                isSmall: true,
+                                backgroundColor: ColorTheme.primary,
+                                onTap: () {},
+                              ).expand(),
+                            ],
+                          )
+                        : Container(),
                   ],
                 ),
               ),
