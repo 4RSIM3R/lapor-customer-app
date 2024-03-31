@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:next_starter/injection.dart';
 import 'package:next_starter/presentation/components/components.dart';
+import 'package:next_starter/presentation/pages/inquiry/form/cubit/inquiry_form_cubit.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -15,6 +17,9 @@ class InquiryFormPage extends StatefulWidget {
 }
 
 class _InquiryFormPageState extends State<InquiryFormPage> {
+
+  final bloc = locator<InquiryFormCubit>();
+
   final form = fb.group({
     'title': ['', Validators.required],
     'site_id': ['', Validators.required],
