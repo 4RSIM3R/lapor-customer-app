@@ -6,7 +6,9 @@ import 'package:next_starter/presentation/theme/theme.dart';
 
 @RoutePage()
 class TicketDetailPage extends StatefulWidget {
-  const TicketDetailPage({super.key});
+  const TicketDetailPage({super.key, this.ticketId});
+
+  final dynamic ticketId;
 
   @override
   State<TicketDetailPage> createState() => _TicketDetailPageState();

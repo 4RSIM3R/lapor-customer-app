@@ -97,9 +97,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     TicketDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<TicketDetailRouteArgs>(
+          orElse: () => const TicketDetailRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const TicketDetailPage(),
+        child: TicketDetailPage(
+          key: args.key,
+          ticketId: args.ticketId,
+        ),
       );
     },
     TicketFormRoute.name: (routeData) {
@@ -353,16 +358,40 @@ class SplashRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [TicketDetailPage]
-class TicketDetailRoute extends PageRouteInfo<void> {
-  const TicketDetailRoute({List<PageRouteInfo>? children})
-      : super(
+class TicketDetailRoute extends PageRouteInfo<TicketDetailRouteArgs> {
+  TicketDetailRoute({
+    Key? key,
+    dynamic ticketId,
+    List<PageRouteInfo>? children,
+  }) : super(
           TicketDetailRoute.name,
+          args: TicketDetailRouteArgs(
+            key: key,
+            ticketId: ticketId,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'TicketDetailRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<TicketDetailRouteArgs> page =
+      PageInfo<TicketDetailRouteArgs>(name);
+}
+
+class TicketDetailRouteArgs {
+  const TicketDetailRouteArgs({
+    this.key,
+    this.ticketId,
+  });
+
+  final Key? key;
+
+  final dynamic ticketId;
+
+  @override
+  String toString() {
+    return 'TicketDetailRouteArgs{key: $key, ticketId: $ticketId}';
+  }
 }
 
 /// generated route for

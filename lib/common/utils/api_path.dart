@@ -8,4 +8,8 @@ class ApiPath {
   static const String resetPassword = "reset-password";
   static const String verifyOtp = "verify-otp/";
   static const String forgotPassword = "forgot-password";
+
+  // Ticket
+  static const String ticket = "ticket/customer/get";
+  static const String ticketDetail = "ticket/customer/detail";
 }
