@@ -10,10 +10,10 @@ part 'auth_state.dart';
 
 @injectable
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(
-    this.repo,
-    // this.userRepo,
-  ) : super(const AuthState.initial());
+  AuthCubit(this.repo
+      // this.userRepo,
+      )
+      : super(const AuthState.initial());
 
   final AuthRepository repo;
 

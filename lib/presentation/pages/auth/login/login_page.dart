@@ -23,9 +23,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final bloc = locator<AuthCubit>();
+
   final form = fb.group({
     'email': [
-     '',
+      '',
       Validators.required,
       Validators.email,
     ],
@@ -35,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => locator<AuthCubit>(),
+      create: (context) => bloc,
       child: ReactiveFormBuilder(
         form: () => form,
         builder: (context, form, child) => BaseScaffold(
@@ -48,12 +51,13 @@ class _LoginPageState extends State<LoginPage> {
                   orElse: () {},
                   loading: () => context.showLoadingIndicator(),
                   error: (msg) {
+                     context.hideLoading();
                     context.showSnackbar(title: "Error", message: msg, error: true);
                   },
                   success: (msg) {
                     context.hideLoading();
                     context.showSnackbar(title: "Sukses", message: msg);
-                    context.route.pushAndPopUntil(const HomeRoute(), predicate: (route) => false);
+                    context.route.replace(const HomeRoute());
                   },
                 );
               },
@@ -64,12 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         PrimaryButton(
                           onTap: () {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            if (widget.isAddAccount) {
-                              context.route.maybePop();
-                            } else {
-                              context.route.replace(const HomeRoute());
-                            }
+                            bloc.login(formG.value);
                           },
                           title: "Masuk",
                           isEnable: formG.valid,

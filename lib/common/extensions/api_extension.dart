@@ -20,6 +20,7 @@ extension ApiExceptionDioX on DioException {
             response?.data['message'] ?? 'Unauthorized',
           );
         } else if (code == 400) {
+          print('api exception');
           return ApiException.serverException(
             message: response?.data['message'] ?? 'Error tidak diketahui',
           );
@@ -39,7 +40,9 @@ extension ApiExceptionDioX on DioException {
       case DioExceptionType.badCertificate:
         return const ApiException.badCertificate();
       case DioExceptionType.badResponse:
-        return const ApiException.badResponse();
+        return ApiException.serverException(
+          message: response?.data['message'] ?? 'Error tidak diketahui',
+        );
       case DioExceptionType.unknown:
         if (response == null) {
           return const ApiException.serverException(

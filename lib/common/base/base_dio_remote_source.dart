@@ -28,10 +28,11 @@ class BaseDioRemoteSource {
     try {
       if (isAuth) {
         final token = await _session.hasSession;
+        print(token);
         // Vx.log('user: $user');
         if (token) {
           _dio.options.headers.addAll({
-            "Authorization": "Bearer $token",
+            "Authorization": "Bearer ${await _session.token}",
           });
         } else {
           _dio.options.headers.remove("Authorization");
@@ -54,29 +55,15 @@ class BaseDioRemoteSource {
         //   );
         // }
       } else {
-        throw const ApiException.serverException(
-            message: 'UnExpected Error in status code!!!');
+        throw const ApiException.serverException(message: 'UnExpected Error in status code!!!');
       }
     } on DioException catch (e) {
       var err = e.toApiException;
-      // TODO: if auto redirect to login page
-      // await err.maybeWhen(
-      //   orElse: () {},
-      //   unAuthorized: (message) async {
-      //     logger.d(message);
-      //     if (message != "Password atau No HP salah!") {
-      //       await _session.deleteToken();
-      //       await _session.deleteUserData();
-      //       locator<AppRouter>().pushAndPopUntil(const LoginRoute(), predicate: (r) => false);
-      //       return;
-      //     }
-      //   },
-      // );
+      print(e.type);
       throw err;
     } catch (e) {
       logger.e(e);
-      throw const ApiException.serverException(
-          message: 'UnExpected Error Occurred in dio!!!');
+      throw const ApiException.serverException(message: 'UnExpected Error Occurred in dio!!!');
     }
   }
 }

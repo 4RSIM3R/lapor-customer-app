@@ -119,6 +119,7 @@ class _TicketListPageState extends State<TicketListPage> {
                   controller: controller,
                   boardScrollController: boardScroll,
                   cardBuilder: (BuildContext context, AppFlowyGroupData<dynamic> groupData, AppFlowyGroupItem item) {
+                    final textItem = item as TextItem;
                     return AppFlowyGroupCard(
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       key: ValueKey(item.id),
@@ -126,7 +127,7 @@ class _TicketListPageState extends State<TicketListPage> {
                         onTap: () {
                           context.router.push(TicketDetailRoute(ticketId: 1));
                         },
-                        child: TicketCard(groupData: groupData),
+                        child: TicketCard(groupData: groupData, model: textItem.model),
                       ),
                     );
                   },
@@ -148,7 +149,7 @@ class _TicketListPageState extends State<TicketListPage> {
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: Text(
-                              '10',
+                              '${columnData.items.length}',
                               style: CustomTextTheme.paragraph1.copyWith(color: ColorTheme.primary),
                             ),
                           )

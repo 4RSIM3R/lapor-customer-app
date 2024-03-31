@@ -25,32 +25,24 @@ class BaseRepository {
     Future<void> Function(R data)? onSaveToLocal,
     T? getOnLocal,
   }) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final data = await call;
-        if (onSaveToLocal != null) {
-          await onSaveToLocal(data);
-        }
-        return right(onSuccess(data));
-      } on ApiException catch (e) {
-        return left(e.when(
-          serverException: (message) => AppError.serverError(message: message),
-          unprocessableEntity: (message, errors) =>
-              AppError.validationError(message: message, errors: errors),
-          unAuthorized: (message) => AppError.unAuthorized(message: message),
-          network: () => const AppError.noInternet(),
-          database: (message) =>
-              AppError.serverError(message: message, code: 200),
-          connectionTimeOut: () => const AppError.timeOut(),
-          badCertificate: () => const AppError.badCertificate(),
-          badResponse: () => const AppError.badResponse(),
-        ));
+    try {
+      final data = await call;
+      if (onSaveToLocal != null) {
+        await onSaveToLocal(data);
       }
-    } else {
-      if (getOnLocal != null) {
-        return right(getOnLocal);
-      }
-      return left(const AppError.noInternet());
+      return right(onSuccess(data));
+    } on ApiException catch (e) {
+      print(e.toString());
+      return left(e.when(
+        serverException: (message) => AppError.serverError(message: message),
+        unprocessableEntity: (message, errors) => AppError.validationError(message: message, errors: errors),
+        unAuthorized: (message) => AppError.unAuthorized(message: message),
+        network: () => const AppError.noInternet(),
+        database: (message) => AppError.serverError(message: message, code: 200),
+        connectionTimeOut: () => const AppError.timeOut(),
+        badCertificate: () => const AppError.badCertificate(),
+        badResponse: () => const AppError.badResponse(),
+      ));
     }
   }
 }
