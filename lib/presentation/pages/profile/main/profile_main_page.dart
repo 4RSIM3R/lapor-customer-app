@@ -34,10 +34,12 @@ class _ProfileMainPageState extends State<ProfileMainPage> {
                 orElse: () {},
                 loading: () => context.showLoadingIndicator(),
                 error: (msg) {
+                  context.hideLoading();
                   context.showSnackbar(title: "Error", message: msg, error: true);
                 },
-                success: (msg) {
+                successLogout: (msg) {
                   context.hideLoading();
+
                   context.showSnackbar(title: "Sukses", message: msg);
                   context.route.replace(LoginRoute());
                 },
@@ -52,7 +54,9 @@ class _ProfileMainPageState extends State<ProfileMainPage> {
             title: const Text('Profile'),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  authBloc.logout();
+                },
                 icon: const Icon(Icons.exit_to_app, color: Colors.red),
               )
             ],

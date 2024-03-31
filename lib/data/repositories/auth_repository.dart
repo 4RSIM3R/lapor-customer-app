@@ -78,8 +78,8 @@ class AuthRepository extends BaseRepository {
   }
 
   EitherResponse<void> logout() async {
-    return handleNetworkCall(
-      call: session.deleteToken(),
+    return await handleNetworkCall(
+      call:  session.deleteToken(),
       onSuccess: (r) => r,
     );
   }
