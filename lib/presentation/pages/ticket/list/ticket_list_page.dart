@@ -10,6 +10,7 @@ import 'package:next_starter/presentation/pages/ticket/list/widgets/ticket_card.
 import 'package:next_starter/presentation/routes/app_router.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 import 'package:next_starter/presentation/utils/constant.dart';
+import 'package:next_starter/presentation/utils/date.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
@@ -38,7 +39,7 @@ class _TicketListPageState extends State<TicketListPage> {
   @override
   void initState() {
     super.initState();
-
+    bloc.get(start: toMysqlDate(start), end: toMysqlDate(end));
     controller.enableGroupDragging(false);
   }
 
@@ -80,15 +81,19 @@ class _TicketListPageState extends State<TicketListPage> {
                     orElse: () => Container(),
                     success: (success) => IconButton(
                       onPressed: () async {
-                        await showDateRangePicker(
+                        var date = await showDateRangePicker(
                           context: context,
-                          initialDateRange: DateTimeRange(
-                            start: start,
-                            end: end,
-                          ),
+                          initialDateRange: DateTimeRange(start: start, end: end),
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2100),
                         );
+
+                        setState(() {
+                          start = date!.start;
+                          end = date.end;
+                        });
+
+                        bloc.get(start: toMysqlDate(start), end: toMysqlDate(end));
                       },
                       icon: const Icon(Icons.calendar_month),
                     ),
