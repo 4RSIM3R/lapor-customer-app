@@ -36,10 +36,8 @@ extension BuildContextX on BuildContext {
   }) {
     showDialog(
       context: this,
-      builder: (context) => WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
+      builder: (context) => PopScope(
+        canPop: false,
         child: AlertDialog(
           backgroundColor: Colors.transparent,
           elevation: 0,

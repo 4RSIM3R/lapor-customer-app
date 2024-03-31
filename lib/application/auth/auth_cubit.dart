@@ -24,14 +24,7 @@ class AuthCubit extends Cubit<AuthState> {
     await result.fold<FutureOr<void>>(
       (l) => emit(AuthState.error(l.message)),
       (r) async {
-        // final user = await userRepo.profile();
-        // await user.fold<FutureOr<void>>(
-        //   (l) => emit(AuthState.error(l.message)),
-        //   (r) async {
-        //     // await notification.setExternalUserByEmail(r.email!);
         emit(const AuthState.success("Selamat datang kembali!"));
-        //   },
-        // );
       },
     );
   }

@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (widget.isAddAccount) {
                               context.route.maybePop();
                             } else {
-                              context.route.pushAndPopUntil(const HomeRoute(), predicate: (route) => false);
+                              context.route.replace(const HomeRoute());
                             }
                           },
                           title: "Masuk",
