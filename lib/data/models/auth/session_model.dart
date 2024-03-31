@@ -10,9 +10,7 @@ class SessionModel extends Equatable {
 
   factory SessionModel.fromMap(Map<String, dynamic> data) => SessionModel(
         token: data['token'] as String?,
-        expiresAt: data['expires_at'] == null
-            ? null
-            : DateTime.parse(data['expires_at'] as String),
+        expiresAt: data['expired_in'] == null ? null : DateTime.parse(data['expired_in'] as String),
       );
 
   Map<String, dynamic> toMap() => {

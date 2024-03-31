@@ -1,6 +1,5 @@
 import 'package:adaptive_sizer/adaptive_sizer.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,10 +7,10 @@ import 'package:next_starter/common/extensions/extensions.dart';
 import 'package:next_starter/presentation/components/components.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../../../../application/auth/auth_cubit.dart';
-import '../../../../injection.dart';
-import '../../routes/app_router.dart';
-import '../../theme/theme.dart';
+import '../../../../../application/auth/auth_cubit.dart';
+import '../../../../../injection.dart';
+import '../../../routes/app_router.dart';
+import '../../../theme/theme.dart';
 
 @RoutePage()
 class LoginPage extends StatefulWidget {
@@ -26,11 +25,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final form = fb.group({
     'email': [
-      kDebugMode ? 'agus@nexteam.id' : '',
+     '',
       Validators.required,
       Validators.email,
     ],
-    'password': [kDebugMode ? '123a123a123' : '', Validators.required],
+    'password': ['', Validators.required],
   });
 
   @override

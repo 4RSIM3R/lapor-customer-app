@@ -15,9 +15,7 @@ class AuthRemoteImpl extends BaseDioRemoteSource implements AuthRemote {
     return networkRequest(
       request: (dio) => dio.post(
         ApiPath.forgotPassword,
-        data: {
-          "email": email,
-        },
+        data: {"email": email},
       ),
       onResponse: (r) => r,
       isAuth: false,
@@ -25,15 +23,11 @@ class AuthRemoteImpl extends BaseDioRemoteSource implements AuthRemote {
   }
 
   @override
-  Future<SessionModel> login(
-      {required String email, required String password}) {
+  Future<SessionModel> login({required String email, required String password}) {
     return networkRequest(
       request: (dio) => dio.post(
         ApiPath.login,
-        data: {
-          "email": email,
-          "password": password,
-        },
+        data: {"email": email, "password": password},
       ),
       onResponse: (r) => SessionModel.fromMap(r['data']),
       isAuth: false,
@@ -95,8 +89,7 @@ class AuthRemoteImpl extends BaseDioRemoteSource implements AuthRemote {
   }
 
   @override
-  Future<bool> verifyOtp(
-      {required String email, required String oneTimePassword}) {
+  Future<bool> verifyOtp({required String email, required String oneTimePassword}) {
     return networkRequest(
       request: (dio) => dio.post(
         ApiPath.verifyOtp + email,

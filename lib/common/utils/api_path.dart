@@ -2,7 +2,7 @@ class ApiPath {
   static const String posts = "posts";
 
   // Auth
-  static const String login = "login";
+  static const String login = "auth/customer/login";
   static const String register = "register";
   static const String requestOtp = "refresh-otp/";
   static const String resetPassword = "reset-password";
