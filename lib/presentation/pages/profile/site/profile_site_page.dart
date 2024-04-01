@@ -1,85 +1,45 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:next_starter/presentation/theme/theme.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:next_starter/injection.dart';
+import 'package:next_starter/presentation/pages/profile/site/cubit/profile_site_cubit.dart';
+import 'package:next_starter/presentation/pages/profile/site/widgets/site_card.dart';
 
 @RoutePage()
-class ProfileSitePage extends StatelessWidget {
+class ProfileSitePage extends StatefulWidget {
   const ProfileSitePage({super.key});
 
   @override
+  State<ProfileSitePage> createState() => _ProfileSitePageState();
+}
+
+class _ProfileSitePageState extends State<ProfileSitePage> {
+  final bloc = locator<ProfileSiteCubit>();
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => bloc),
+      ],
+      child: Scaffold(
         backgroundColor: Colors.white,
-        title: const Text('Your Sites'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: List.generate(
-            10,
-            (index) => Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: ColorTheme.primary,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.home_repair_service,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Blok Rokan Hulu',
-                            style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
-                        const SizedBox(height: 4),
-                        Text('PT Pertamina Hulu Rokan (PHR)', style: CustomTextTheme.paragraph1),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                              decoration:
-                                  BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
-                              child: Text(
-                                '10 Units',
-                                style: CustomTextTheme.caption.copyWith(color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(width: 4),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                              decoration:
-                                  BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
-                              child: Text(
-                                '15 Tickets',
-                                style: CustomTextTheme.caption.copyWith(color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    )
-                  ],
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: const Text('Your Sites'),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: BlocBuilder<ProfileSiteCubit, ProfileSiteState>(
+            builder: (context, state) {
+              return state.maybeMap(
+                orElse: () => const Center(child: CircularProgressIndicator.adaptive()),
+                failure: (failure) => Center(child: Text(failure.message)),
+                success: (success) => Column(
+                  children: success.payload.map((e) => SiteCard(model: e)).toList()
                 ),
-                Divider(color: Colors.grey[200]).pSymmetric(v: 8),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),

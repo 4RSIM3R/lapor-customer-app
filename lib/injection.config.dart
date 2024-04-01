@@ -15,8 +15,8 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart'
     as _i7;
 
-import 'application/auth/auth_cubit.dart' as _i42;
-import 'application/bloc/pagination_bloc.dart' as _i44;
+import 'application/auth/auth_cubit.dart' as _i43;
+import 'application/bloc/pagination_bloc.dart' as _i45;
 import 'common/network/network_info.dart' as _i8;
 import 'common/permission/permission.dart' as _i9;
 import 'common/permission/permission_impl.dart' as _i10;
@@ -24,7 +24,7 @@ import 'common/storage/shared_pref_storage.dart' as _i11;
 import 'common/storage/storage.dart' as _i20;
 import 'common/storage/storage_path.dart' as _i12;
 import 'common/utils/image_resize.dart' as _i6;
-import 'data/datasources/network/network_source.dart' as _i45;
+import 'data/datasources/network/network_source.dart' as _i46;
 import 'data/datasources/remote_datasources/auth_remote/auth_remote.dart'
     as _i27;
 import 'data/datasources/remote_datasources/auth_remote/auth_remote_impl.dart'
@@ -67,10 +67,11 @@ import 'data/repositories/site_repository.dart' as _i19;
 import 'data/repositories/ticket_repository.dart' as _i23;
 import 'data/repositories/unit_repository.dart' as _i26;
 import 'presentation/pages/auth/login/cubit/login_cubit.dart' as _i33;
-import 'presentation/pages/inquiry/form/cubit/inquiry_form_cubit.dart' as _i43;
+import 'presentation/pages/inquiry/form/cubit/inquiry_form_cubit.dart' as _i44;
+import 'presentation/pages/profile/site/cubit/profile_site_cubit.dart' as _i40;
 import 'presentation/pages/ticket/detail/cubit/ticket_detail_cubit.dart'
-    as _i40;
-import 'presentation/pages/ticket/list/cubit/ticket_list_cubit.dart' as _i41;
+    as _i41;
+import 'presentation/pages/ticket/list/cubit/ticket_list_cubit.dart' as _i42;
 import 'presentation/routes/app_router.dart' as _i3;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -173,16 +174,18 @@ Future<_i1.GetIt> $initGetIt(
         gh<_i8.NetworkInfo>(),
         gh<_i37.ProfileRemote>(),
       ));
-  gh.factory<_i40.TicketDetailCubit>(
-      () => _i40.TicketDetailCubit(gh<_i23.TicketRepository>()));
-  gh.factory<_i41.TicketListCubit>(
-      () => _i41.TicketListCubit(gh<_i23.TicketRepository>()));
-  gh.factory<_i42.AuthCubit>(() => _i42.AuthCubit(gh<_i29.AuthRepository>()));
-  gh.factory<_i43.InquiryFormCubit>(
-      () => _i43.InquiryFormCubit(gh<_i32.InquiryRepository>()));
-  gh.factory<_i44.PaginationBloc>(
-      () => _i44.PaginationBloc(gh<_i36.PostRepository>()));
+  gh.factory<_i40.ProfileSiteCubit>(
+      () => _i40.ProfileSiteCubit(gh<_i19.SiteRepository>()));
+  gh.factory<_i41.TicketDetailCubit>(
+      () => _i41.TicketDetailCubit(gh<_i23.TicketRepository>()));
+  gh.factory<_i42.TicketListCubit>(
+      () => _i42.TicketListCubit(gh<_i23.TicketRepository>()));
+  gh.factory<_i43.AuthCubit>(() => _i43.AuthCubit(gh<_i29.AuthRepository>()));
+  gh.factory<_i44.InquiryFormCubit>(
+      () => _i44.InquiryFormCubit(gh<_i32.InquiryRepository>()));
+  gh.factory<_i45.PaginationBloc>(
+      () => _i45.PaginationBloc(gh<_i36.PostRepository>()));
   return getIt;
 }
 
-class _$ApiService extends _i45.ApiService {}
+class _$ApiService extends _i46.ApiService {}
