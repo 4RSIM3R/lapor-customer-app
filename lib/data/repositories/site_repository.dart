@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:next_starter/common/base/base_repository.dart';
 import 'package:next_starter/common/typedefs/typedefs.dart';
 import 'package:next_starter/data/datasources/remote_datasources/site_remote/site_remote.dart';
+import 'package:next_starter/data/models/site/site_detail_mode.dart';
 import 'package:next_starter/data/models/site/site_model.dart';
 
 @LazySingleton()
@@ -13,6 +14,13 @@ class SiteRepository extends BaseRepository {
   EitherResponse<List<SiteModel>> getAllSite() async {
     return handleNetworkCall(
       call: remote.getAllSite(),
+      onSuccess: (r) => r,
+    );
+  }
+
+  EitherResponse<SiteDetailModel> getDetailSite({required int id}) async {
+    return handleNetworkCall(
+      call: remote.getDetailSite(id: id),
       onSuccess: (r) => r,
     );
   }

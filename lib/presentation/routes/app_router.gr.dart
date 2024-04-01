@@ -85,9 +85,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ProfileUnitRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileUnitRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const ProfileUnitPage(),
+        child: ProfileUnitPage(
+          key: args.key,
+          siteId: args.siteId,
+        ),
       );
     },
     SplashRoute.name: (routeData) {
@@ -330,16 +334,40 @@ class ProfileSiteRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ProfileUnitPage]
-class ProfileUnitRoute extends PageRouteInfo<void> {
-  const ProfileUnitRoute({List<PageRouteInfo>? children})
-      : super(
+class ProfileUnitRoute extends PageRouteInfo<ProfileUnitRouteArgs> {
+  ProfileUnitRoute({
+    Key? key,
+    required int siteId,
+    List<PageRouteInfo>? children,
+  }) : super(
           ProfileUnitRoute.name,
+          args: ProfileUnitRouteArgs(
+            key: key,
+            siteId: siteId,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ProfileUnitRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<ProfileUnitRouteArgs> page =
+      PageInfo<ProfileUnitRouteArgs>(name);
+}
+
+class ProfileUnitRouteArgs {
+  const ProfileUnitRouteArgs({
+    this.key,
+    required this.siteId,
+  });
+
+  final Key? key;
+
+  final int siteId;
+
+  @override
+  String toString() {
+    return 'ProfileUnitRouteArgs{key: $key, siteId: $siteId}';
+  }
 }
 
 /// generated route for

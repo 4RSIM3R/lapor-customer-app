@@ -24,7 +24,7 @@ import 'common/storage/shared_pref_storage.dart' as _i9;
 import 'common/storage/storage.dart' as _i12;
 import 'common/storage/storage_path.dart' as _i3;
 import 'common/utils/image_resize.dart' as _i4;
-import 'data/datasources/network/network_source.dart' as _i47;
+import 'data/datasources/network/network_source.dart' as _i48;
 import 'data/datasources/remote_datasources/auth_remote/auth_remote.dart'
     as _i17;
 import 'data/datasources/remote_datasources/auth_remote/auth_remote_impl.dart'
@@ -70,6 +70,7 @@ import 'presentation/pages/auth/login/cubit/login_cubit.dart' as _i36;
 import 'presentation/pages/inquiry/form/cubit/inquiry_form_cubit.dart' as _i42;
 import 'presentation/pages/profile/main/cubit/profile_main_cubit.dart' as _i44;
 import 'presentation/pages/profile/site/cubit/profile_site_cubit.dart' as _i46;
+import 'presentation/pages/profile/unit/cubit/profile_unit_cubit.dart' as _i47;
 import 'presentation/pages/ticket/detail/cubit/ticket_detail_cubit.dart'
     as _i39;
 import 'presentation/pages/ticket/list/cubit/ticket_list_cubit.dart' as _i40;
@@ -188,7 +189,9 @@ Future<_i1.GetIt> $initGetIt(
       () => _i45.PaginationBloc(gh<_i38.PostRepository>()));
   gh.factory<_i46.ProfileSiteCubit>(
       () => _i46.ProfileSiteCubit(gh<_i43.SiteRepository>()));
+  gh.factory<_i47.ProfileUnitCubit>(
+      () => _i47.ProfileUnitCubit(gh<_i43.SiteRepository>()));
   return getIt;
 }
 
-class _$ApiService extends _i47.ApiService {}
+class _$ApiService extends _i48.ApiService {}

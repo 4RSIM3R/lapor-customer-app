@@ -1,85 +1,74 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:next_starter/data/models/site/site_model.dart';
+import 'package:next_starter/injection.dart';
+import 'package:next_starter/presentation/pages/profile/unit/cubit/profile_unit_cubit.dart';
+import 'package:next_starter/presentation/pages/profile/unit/widgets/unit_card.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 @RoutePage()
-class ProfileUnitPage extends StatelessWidget {
-  const ProfileUnitPage({super.key});
+class ProfileUnitPage extends StatefulWidget {
+  const ProfileUnitPage({super.key, required this.site});
+
+  final SiteModel site;
+
+  @override
+  State<ProfileUnitPage> createState() => _ProfileUnitPageState();
+}
+
+class _ProfileUnitPageState extends State<ProfileUnitPage> {
+  final bloc = locator<ProfileUnitCubit>();
+
+  @override
+  void initState() {
+    super.initState();
+    bloc.get(id: widget.site.id!);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => bloc),
+      ],
+      child: Scaffold(
         backgroundColor: Colors.white,
-        title: const Text('Your Units'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: List.generate(
-            10,
-            (index) => Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: const Text('Your Units'),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: BlocBuilder<ProfileUnitCubit, ProfileUnitState>(
+            builder: (context, state) {
+              return state.maybeMap(
+                orElse: () => const Center(child: CircularProgressIndicator.adaptive()),
+                failure: (failure) => Center(child: Text(failure.message)),
+                success: (success) => Column(
                   children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: ColorTheme.primary,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.home_repair_service,
-                          color: Colors.white,
-                        ),
-                      ),
+                    Text('Site', style: CustomTextTheme.paragraph1),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${widget.site.name}',
+                      style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(height: 8),
+                    Text('Address', style: CustomTextTheme.paragraph1),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${widget.site.address}',
+                      style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 8),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('UNIT_ID_HERE',
-                            style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
-                        const SizedBox(height: 4),
-                        Text('Unit Name Here', style: CustomTextTheme.paragraph1),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                              decoration:
-                                  BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
-                              child: Text(
-                                'Blok Rokan Hulu',
-                                style: CustomTextTheme.caption.copyWith(color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(width: 4),
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                              decoration:
-                                  BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
-                              child: Text(
-                                'On Working',
-                                style: CustomTextTheme.caption.copyWith(color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )
-                          ],
-                        )
-                      ],
+                      children:
+                          (success.payload.units ?? []).map((e) => UnitCard(model: e, site: widget.site)).toList(),
                     )
                   ],
                 ),
-                Divider(color: Colors.grey[200]).pSymmetric(v: 8),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),

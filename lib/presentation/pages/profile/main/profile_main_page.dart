@@ -134,9 +134,7 @@ class _ProfileMainPageState extends State<ProfileMainPage> {
                     // ),
                     Divider(color: Colors.grey[200]),
                     ListTile(
-                      onTap: () {
-                        context.router.push(const ProfileUnitRoute());
-                      },
+                      onTap: () {},
                       contentPadding: EdgeInsets.zero,
                       leading: Container(
                           height: 45,
