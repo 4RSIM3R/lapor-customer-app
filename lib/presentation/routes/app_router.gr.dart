@@ -90,7 +90,7 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: ProfileUnitPage(
           key: args.key,
-          siteId: args.siteId,
+          site: args.site,
         ),
       );
     },
@@ -337,13 +337,13 @@ class ProfileSiteRoute extends PageRouteInfo<void> {
 class ProfileUnitRoute extends PageRouteInfo<ProfileUnitRouteArgs> {
   ProfileUnitRoute({
     Key? key,
-    required int siteId,
+    required SiteModel site,
     List<PageRouteInfo>? children,
   }) : super(
           ProfileUnitRoute.name,
           args: ProfileUnitRouteArgs(
             key: key,
-            siteId: siteId,
+            site: site,
           ),
           initialChildren: children,
         );
@@ -357,16 +357,16 @@ class ProfileUnitRoute extends PageRouteInfo<ProfileUnitRouteArgs> {
 class ProfileUnitRouteArgs {
   const ProfileUnitRouteArgs({
     this.key,
-    required this.siteId,
+    required this.site,
   });
 
   final Key? key;
 
-  final int siteId;
+  final SiteModel site;
 
   @override
   String toString() {
-    return 'ProfileUnitRouteArgs{key: $key, siteId: $siteId}';
+    return 'ProfileUnitRouteArgs{key: $key, site: $site}';
   }
 }
 

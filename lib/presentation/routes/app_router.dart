@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:next_starter/data/models/site/site_model.dart';
 import 'package:next_starter/presentation/pages/inquiry/form/inquiry_form_page.dart';
 import 'package:next_starter/presentation/pages/profile/main/profile_main_page.dart';
 import 'package:next_starter/presentation/pages/profile/site/profile_site_page.dart';

@@ -19,4 +19,9 @@ class ApiPath {
 
   // Profile
   static const String profile = "profile/customer";
+
+  // Inquiry
+  static const String inquiry = "profile/customer";
+
+  static const String inquiryCreate = "inquiry/customer/create";
 }

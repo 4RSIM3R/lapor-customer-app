@@ -16,7 +16,7 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
     as _i7;
 
 import 'application/auth/auth_cubit.dart' as _i35;
-import 'application/bloc/pagination_bloc.dart' as _i45;
+import 'application/bloc/pagination_bloc.dart' as _i46;
 import 'common/network/network_info.dart' as _i13;
 import 'common/permission/permission.dart' as _i10;
 import 'common/permission/permission_impl.dart' as _i11;
@@ -24,7 +24,7 @@ import 'common/storage/shared_pref_storage.dart' as _i9;
 import 'common/storage/storage.dart' as _i12;
 import 'common/storage/storage_path.dart' as _i3;
 import 'common/utils/image_resize.dart' as _i4;
-import 'data/datasources/network/network_source.dart' as _i48;
+import 'data/datasources/network/network_source.dart' as _i49;
 import 'data/datasources/remote_datasources/auth_remote/auth_remote.dart'
     as _i17;
 import 'data/datasources/remote_datasources/auth_remote/auth_remote_impl.dart'
@@ -63,14 +63,15 @@ import 'data/repositories/inquiry_repository.dart' as _i41;
 import 'data/repositories/post_repository.dart' as _i38;
 import 'data/repositories/profile_repository.dart' as _i37;
 import 'data/repositories/setting_repository.dart' as _i34;
-import 'data/repositories/site_repository.dart' as _i43;
+import 'data/repositories/site_repository.dart' as _i44;
 import 'data/repositories/ticket_repository.dart' as _i30;
 import 'data/repositories/unit_repository.dart' as _i33;
 import 'presentation/pages/auth/login/cubit/login_cubit.dart' as _i36;
 import 'presentation/pages/inquiry/form/cubit/inquiry_form_cubit.dart' as _i42;
-import 'presentation/pages/profile/main/cubit/profile_main_cubit.dart' as _i44;
-import 'presentation/pages/profile/site/cubit/profile_site_cubit.dart' as _i46;
-import 'presentation/pages/profile/unit/cubit/profile_unit_cubit.dart' as _i47;
+import 'presentation/pages/inquiry/list/cubit/inquiry_list_cubit.dart' as _i43;
+import 'presentation/pages/profile/main/cubit/profile_main_cubit.dart' as _i45;
+import 'presentation/pages/profile/site/cubit/profile_site_cubit.dart' as _i47;
+import 'presentation/pages/profile/unit/cubit/profile_unit_cubit.dart' as _i48;
 import 'presentation/pages/ticket/detail/cubit/ticket_detail_cubit.dart'
     as _i39;
 import 'presentation/pages/ticket/list/cubit/ticket_list_cubit.dart' as _i40;
@@ -179,19 +180,21 @@ Future<_i1.GetIt> $initGetIt(
       ));
   gh.factory<_i42.InquiryFormCubit>(
       () => _i42.InquiryFormCubit(gh<_i41.InquiryRepository>()));
-  gh.lazySingleton<_i43.SiteRepository>(() => _i43.SiteRepository(
+  gh.factory<_i43.InquiryListCubit>(
+      () => _i43.InquiryListCubit(gh<_i41.InquiryRepository>()));
+  gh.lazySingleton<_i44.SiteRepository>(() => _i44.SiteRepository(
         gh<_i13.NetworkInfo>(),
         gh<_i23.SiteRemote>(),
       ));
-  gh.factory<_i44.ProfileMainCubit>(
-      () => _i44.ProfileMainCubit(gh<_i37.ProfileRepository>()));
-  gh.factory<_i45.PaginationBloc>(
-      () => _i45.PaginationBloc(gh<_i38.PostRepository>()));
-  gh.factory<_i46.ProfileSiteCubit>(
-      () => _i46.ProfileSiteCubit(gh<_i43.SiteRepository>()));
-  gh.factory<_i47.ProfileUnitCubit>(
-      () => _i47.ProfileUnitCubit(gh<_i43.SiteRepository>()));
+  gh.factory<_i45.ProfileMainCubit>(
+      () => _i45.ProfileMainCubit(gh<_i37.ProfileRepository>()));
+  gh.factory<_i46.PaginationBloc>(
+      () => _i46.PaginationBloc(gh<_i38.PostRepository>()));
+  gh.factory<_i47.ProfileSiteCubit>(
+      () => _i47.ProfileSiteCubit(gh<_i44.SiteRepository>()));
+  gh.factory<_i48.ProfileUnitCubit>(
+      () => _i48.ProfileUnitCubit(gh<_i44.SiteRepository>()));
   return getIt;
 }
 
-class _$ApiService extends _i48.ApiService {}
+class _$ApiService extends _i49.ApiService {}

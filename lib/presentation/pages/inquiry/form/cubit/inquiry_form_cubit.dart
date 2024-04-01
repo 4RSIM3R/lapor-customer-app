@@ -12,4 +12,5 @@ class InquiryFormCubit extends Cubit<InquiryFormState> {
 
   final InquiryRepository repository;
 
+  Future<void> submitInquiry({required Map<String, dynamic> payload}) async {}
 }

@@ -14,7 +14,7 @@ class SiteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.router.push(ProfileUnitRoute(siteId: model.id!));
+        context.router.push(ProfileUnitRoute(site: model));
       },
       child: Column(
         children: [
