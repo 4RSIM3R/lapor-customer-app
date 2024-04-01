@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^6.1.0
   image_picker: ^1.0.4
-  file_picker: ^6.1.1
+  file_picker: ^8.0.0+1
 
   auto_route: ^7.8.4
 
@@ -82,7 +82,7 @@ dependencies:
   cupertino_stepper: ^0.2.1
   casa_vertical_stepper: ^0.0.5
   easy_stepper: ^0.8.3
-  readmore: ^2.2.0
+  readmore: ^3.0.0
   month_year_picker: ^0.3.0+1
   flutter_localization: ^0.2.0
   # lecle_downloads_path_provider: ^0.0.2+8

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:next_starter/application/auth/auth_cubit.dart';
 import 'package:next_starter/common/extensions/extensions.dart';
 import 'package:next_starter/injection.dart';
+import 'package:next_starter/presentation/pages/profile/main/cubit/profile_main_cubit.dart';
 import 'package:next_starter/presentation/routes/app_router.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -19,12 +20,14 @@ class ProfileMainPage extends StatefulWidget {
 
 class _ProfileMainPageState extends State<ProfileMainPage> {
   final authBloc = locator<AuthCubit>();
+  final profileBloc = locator<ProfileMainCubit>();
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => authBloc),
+        BlocProvider(create: (_) => profileBloc),
       ],
       child: MultiBlocListener(
         listeners: [
@@ -61,76 +64,93 @@ class _ProfileMainPageState extends State<ProfileMainPage> {
               )
             ],
           ),
-          body: Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    height: 70,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      color: ColorTheme.primary,
-                      borderRadius: BorderRadius.circular(45),
-                      image: const DecorationImage(
-                        image: CachedNetworkImageProvider("https://i.pravatar.cc/300"),
-                        fit: BoxFit.cover,
-                      ),
+          body: BlocBuilder<ProfileMainCubit, ProfileMainState>(
+            builder: (context, state) {
+              return state.maybeMap(
+                orElse: () => const Center(child: CircularProgressIndicator.adaptive()),
+                failure: (failure) => Center(child: Text(failure.message)),
+                succcess: (success) => Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 70,
+                          width: 70,
+                          decoration: BoxDecoration(
+                            color: ColorTheme.primary,
+                            borderRadius: BorderRadius.circular(45),
+                            image: const DecorationImage(
+                              image: CachedNetworkImageProvider("https://i.pravatar.cc/300"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${success.payload.name}',
+                              style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              '${success.payload.company?.name} (${success.payload.company?.businessName})',
+                              style: CustomTextTheme.paragraph1,
+                            ),
+                          ],
+                        )
+                      ],
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Nadiem Makarim', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
-                      Text('PT Sukses Bersama', style: CustomTextTheme.paragraph1),
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(height: 16),
-              ListTile(
-                contentPadding: EdgeInsets.zero,
-                onTap: () {
-                  context.router.push(const ProfileSiteRoute());
-                },
-                leading: Container(
-                  height: 45,
-                  width: 45,
-                  decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(30)),
-                  child: const Icon(Icons.work, color: Colors.white, size: 22),
+                    const SizedBox(height: 16),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      onTap: () {
+                        context.router.push(const ProfileSiteRoute());
+                      },
+                      leading: Container(
+                        height: 45,
+                        width: 45,
+                        decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(30)),
+                        child: const Icon(Icons.work, color: Colors.white, size: 22),
+                      ),
+                      title:
+                          Text('Your Sites', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
+                      subtitle: Text('List of associated Sites', style: CustomTextTheme.paragraph1),
+                    ),
+                    // Divider(color: Colors.grey[200]),
+                    // ListTile(
+                    //   onTap: () {
+                    //     context.router.push(const ProfileUnitRoute());
+                    //   },
+                    //   contentPadding: EdgeInsets.zero,
+                    //   leading: Container(
+                    //       height: 45,
+                    //       width: 45,
+                    //       decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(30)),
+                    //       child: const Icon(Icons.dock, color: Colors.white, size: 22)),
+                    //   title:
+                    //       Text('Your Units', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
+                    //   subtitle: Text('List of associated Units', style: CustomTextTheme.paragraph1),
+                    // ),
+                    Divider(color: Colors.grey[200]),
+                    ListTile(
+                      onTap: () {
+                        context.router.push(const ProfileUnitRoute());
+                      },
+                      contentPadding: EdgeInsets.zero,
+                      leading: Container(
+                          height: 45,
+                          width: 45,
+                          decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(30)),
+                          child: const Icon(Icons.phone, color: Colors.white, size: 22)),
+                      title:
+                          Text('Contact Us', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
+                      subtitle: Text("Whenever You're Face The Problem", style: CustomTextTheme.paragraph1),
+                    )
+                  ],
                 ),
-                title: Text('Your Sites', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
-                subtitle: Text('List of associated Sites', style: CustomTextTheme.paragraph1),
-              ),
-              Divider(color: Colors.grey[200]),
-              ListTile(
-                onTap: () {
-                  context.router.push(const ProfileUnitRoute());
-                },
-                contentPadding: EdgeInsets.zero,
-                leading: Container(
-                    height: 45,
-                    width: 45,
-                    decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(30)),
-                    child: const Icon(Icons.dock, color: Colors.white, size: 22)),
-                title: Text('Your Units', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
-                subtitle: Text('List of associated Units', style: CustomTextTheme.paragraph1),
-              ),
-              Divider(color: Colors.grey[200]),
-              ListTile(
-                onTap: () {
-                  context.router.push(const ProfileUnitRoute());
-                },
-                contentPadding: EdgeInsets.zero,
-                leading: Container(
-                    height: 45,
-                    width: 45,
-                    decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(30)),
-                    child: const Icon(Icons.phone, color: Colors.white, size: 22)),
-                title: Text('Contact Us', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
-                subtitle: Text("Whenever You're Face The Problem", style: CustomTextTheme.paragraph1),
-              )
-            ],
+              );
+            },
           ).p(16),
         ),
       ),

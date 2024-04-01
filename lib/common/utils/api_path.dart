@@ -15,4 +15,7 @@ class ApiPath {
 
   // Site
   static const String site = "site/customer/get";
+
+  // Profile
+  static const String profile = "profile/customer";
 }
