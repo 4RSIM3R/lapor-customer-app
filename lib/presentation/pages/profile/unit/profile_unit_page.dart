@@ -36,7 +36,7 @@ class _ProfileUnitPageState extends State<ProfileUnitPage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: const Text('Your Units'),
+          title: Text('${widget.site.name} Units'),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -46,6 +46,7 @@ class _ProfileUnitPageState extends State<ProfileUnitPage> {
                 orElse: () => const Center(child: CircularProgressIndicator.adaptive()),
                 failure: (failure) => Center(child: Text(failure.message)),
                 success: (success) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Site', style: CustomTextTheme.paragraph1),
                     const SizedBox(height: 4),
@@ -60,11 +61,16 @@ class _ProfileUnitPageState extends State<ProfileUnitPage> {
                       '${widget.site.address}',
                       style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
                     ),
-                    const SizedBox(height: 8),
-                    Column(
-                      children:
-                          (success.payload.units ?? []).map((e) => UnitCard(model: e, site: widget.site)).toList(),
-                    )
+                    const SizedBox(height: 16),
+                    (success.payload.units ?? []).isNotEmpty
+                        ? Column(
+                            children: (success.payload.units ?? [])
+                                .map((e) => UnitCard(model: e, site: widget.site))
+                                .toList(),
+                          )
+                        : const Center(
+                            child: Text('Unit Data Not Available'),
+                          )
                   ],
                 ),
               );

@@ -15,7 +15,7 @@ class TicketRemoteImpl extends BaseDioRemoteSource implements TicketRemote {
       isAuth: true,
       request: (dio) => dio.get(ApiPath.ticket, queryParameters: {'start': start, 'end': end}),
       onResponse: (json) => json != null
-          ? (json['data']['data'] as List).map<TicketModel>((post) => TicketModel.fromJson(post)).toList()
+          ? (json['data'] as List).map<TicketModel>((post) => TicketModel.fromJson(post)).toList()
           : [],
     );
   }

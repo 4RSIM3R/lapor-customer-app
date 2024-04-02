@@ -17,6 +17,12 @@ class _ProfileSitePageState extends State<ProfileSitePage> {
   final bloc = locator<ProfileSiteCubit>();
 
   @override
+  void initState() {
+    super.initState();
+    bloc.get();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [

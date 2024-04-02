@@ -14,7 +14,7 @@ class InquiryRemoteImpl extends BaseDioRemoteSource implements InquiryRemote {
     return networkRequest(
       isAuth: true,
       request: (dio) => dio.get(ApiPath.inquiry, queryParameters: params),
-      onResponse: (json) => (json['data']['data'] as List).map((e) => InquiryModel.fromJson(e)).toList(),
+      onResponse: (json) => (json['data'] as List).map((e) => InquiryModel.fromJson(e)).toList(),
     );
   }
 

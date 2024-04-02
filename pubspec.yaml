@@ -85,6 +85,7 @@ dependencies:
   readmore: ^3.0.0
   month_year_picker: ^0.3.0+1
   flutter_localization: ^0.2.0
+  timeago: ^3.6.1
   # lecle_downloads_path_provider: ^0.0.2+8
 
   # Local Database

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:next_starter/data/models/inquiry/inquiry_model.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class InquiryCard extends StatelessWidget {
   const InquiryCard({
@@ -30,23 +31,26 @@ class InquiryCard extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('The question here', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
-              Text('3h Ago',
-                  style: CustomTextTheme.paragraph1.copyWith(color: Colors.grey, fontWeight: FontWeight.w600)),
+              Text('${model.title}', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
+              Text(
+                timeago.format(model.createdAt!),
+                style: CustomTextTheme.paragraph1.copyWith(color: Colors.grey, fontWeight: FontWeight.w600),
+              ),
             ],
           ),
           subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 2),
               Text(
-                'happy to share this notification element which we designed recently for one our client projects',
+                '${model.information}',
                 style: CustomTextTheme.paragraph1,
               ),
               Row(
                 children: [
                   Chip(
                     backgroundColor: ColorTheme.primary,
-                    label: Text('Approved', style: CustomTextTheme.paragraph1.copyWith(color: Colors.white)),
+                    label: Text('${model.status}', style: CustomTextTheme.paragraph1.copyWith(color: Colors.white)),
                     padding: const EdgeInsets.all(4),
                     side: BorderSide.none,
                   ),

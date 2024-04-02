@@ -14,7 +14,7 @@ class SiteRemoteImpl extends BaseDioRemoteSource implements SiteRemote {
     return networkRequest(
       isAuth: true,
       request: (dio) => dio.get(ApiPath.site),
-      onResponse: (json) => (json['data']['data'] as List).map((e) => SiteModel.fromJson(e)).toList(),
+      onResponse: (json) => (json['data'] as List).map((e) => SiteModel.fromJson(e)).toList(),
     );
   }
 

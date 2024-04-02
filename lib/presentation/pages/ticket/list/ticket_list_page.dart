@@ -56,6 +56,8 @@ class _TicketListPageState extends State<TicketListPage> {
             success: (success) {
               Map<String?, List<TicketModel>> grouped = success.groupBy((e) => e.status);
 
+              controller.clear();
+
               for (var e in ticketStatus) {
                 controller.addGroup(AppFlowyGroupData(
                   id: e,

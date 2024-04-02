@@ -12,8 +12,10 @@ class InquiryRepository extends BaseRepository {
   InquiryRepository(super.networkInfo, this.remote);
 
   EitherResponse<List<InquiryModel>> getAllInquiry({String? start, String? end, String? status}) {
+    var params = {'start': start, 'end': end, 'status': status};
+    params.removeWhere((key, value) => value == null);
     return handleNetworkCall(
-      call: remote.getAllInquiry(params: {'start': start, 'end': end, 'status': status}),
+      call: remote.getAllInquiry(params: params),
       onSuccess: (r) => r,
     );
   }

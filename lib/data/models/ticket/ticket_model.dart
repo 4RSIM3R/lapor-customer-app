@@ -1,3 +1,6 @@
+import 'package:next_starter/data/models/employee/employee_model.dart';
+import 'package:next_starter/data/models/site/site_model.dart';
+
 class TicketModel {
   final int? id;
   final int? customerId;
@@ -13,6 +16,8 @@ class TicketModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final List<dynamic>? photo;
+  final SiteModel? site;
+  final EmployeeModel? employee;
 
   TicketModel({
     this.id,
@@ -29,6 +34,8 @@ class TicketModel {
     this.createdAt,
     this.updatedAt,
     this.photo,
+    this.site,
+    this.employee,
   });
 
   factory TicketModel.fromJson(Map<String, dynamic> json) => TicketModel(
@@ -46,5 +53,7 @@ class TicketModel {
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         photo: json["photo"] == null ? [] : List<dynamic>.from(json["photo"]!.map((x) => x)),
+        site: json["site"] == null ? null : SiteModel.fromJson(json["site"]),
+        employee: json["employee"] == null ? null : EmployeeModel.fromJson(json["employee"]),
       );
 }

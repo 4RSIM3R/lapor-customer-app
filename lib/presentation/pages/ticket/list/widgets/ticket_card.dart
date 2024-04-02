@@ -37,7 +37,7 @@ class TicketCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text('Employee', style: CustomTextTheme.paragraph1),
           const SizedBox(height: 4),
-          Text('${model.employeeId}', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
+          Text('${model.employee?.name}', style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600)),
           groupData.id != "ADMIN_APPROVED" ? const SizedBox(height: 8) : const SizedBox.shrink(),
           groupData.id != "ADMIN_APPROVED"
               ? Row(
@@ -56,7 +56,7 @@ class TicketCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                       decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
                       child: Text(
-                        '${model.siteId}',
+                        '${model.site?.name}',
                         style: CustomTextTheme.caption.copyWith(color: Colors.white),
                         overflow: TextOverflow.ellipsis,
                       ),

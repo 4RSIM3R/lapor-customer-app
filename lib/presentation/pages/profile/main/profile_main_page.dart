@@ -23,6 +23,12 @@ class _ProfileMainPageState extends State<ProfileMainPage> {
   final profileBloc = locator<ProfileMainCubit>();
 
   @override
+  void initState() {
+    super.initState();
+    profileBloc.get();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [

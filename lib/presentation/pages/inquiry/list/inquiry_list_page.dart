@@ -19,7 +19,7 @@ class InquiryListPage extends StatefulWidget {
 
 class _InquiryListPageState extends State<InquiryListPage> {
   final form = fb.group({
-    'status': [''],
+    'status': ['NEED_REVIEW'],
   });
 
   String? status;
@@ -31,7 +31,7 @@ class _InquiryListPageState extends State<InquiryListPage> {
   @override
   void initState() {
     super.initState();
-    bloc.getAllInquiry();
+    bloc.getAllInquiry(status: 'NEED_REVIEW');
     form.controls['status']!.valueChanges.listen((event) {
       status = event.toString();
       bloc.getAllInquiry(status: status, start: toMysqlDate(start), end: toMysqlDate(end));
@@ -120,7 +120,9 @@ class _InquiryListPageState extends State<InquiryListPage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            context.router.push(const InquiryFormRoute());
+            context.router.push(const InquiryFormRoute()).then((value) {
+              bloc.getAllInquiry(status: status, start: toMysqlDate(start), end: toMysqlDate(end));
+            });
           },
           child: const Icon(Icons.add),
         ),
