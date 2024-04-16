@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:next_starter/common/extensions/extensions.dart';
 import 'package:next_starter/injection.dart';
+import 'package:next_starter/presentation/components/components.dart';
 import 'package:next_starter/presentation/pages/ticket/detail/cubit/ticket_detail_cubit.dart';
 import 'package:next_starter/presentation/pages/ticket/detail/widgets/ticket_detail_card.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
+import 'package:swipe_image_gallery/swipe_image_gallery.dart';
 
 @RoutePage()
 class TicketDetailPage extends StatefulWidget {
@@ -82,6 +84,25 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                         '${success.payload.site?.name}',
                         style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
                       ),
+                      const SizedBox(height: 8),
+                      Text('Image Attachment', style: CustomTextTheme.paragraph1),
+                      const SizedBox(height: 4),
+                      (success.payload.photo ?? []).isNotEmpty
+                          ? PrimaryButton(
+                              title: 'See Attachment',
+                              onTap: () {
+                                var assets = (success.payload.photo ?? [])
+                                    .map(
+                                      (e) => Image(image: NetworkImage(e)),
+                                    )
+                                    .toList();
+                                SwipeImageGallery(context: context, children: assets).show();
+                              },
+                            )
+                          : Text(
+                              'No Attachment Found',
+                              style: CustomTextTheme.paragraph2.copyWith(fontWeight: FontWeight.w600),
+                            ),
                       const SizedBox(height: 16),
                       (success.payload.histories ?? []).isNotEmpty
                           ? Stepper(

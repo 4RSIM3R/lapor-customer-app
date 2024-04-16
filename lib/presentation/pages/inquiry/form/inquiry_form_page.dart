@@ -12,6 +12,7 @@ import 'package:next_starter/presentation/pages/inquiry/form/cubit/inquiry_form_
 import 'package:next_starter/presentation/pages/profile/site/cubit/profile_site_cubit.dart';
 import 'package:next_starter/presentation/theme/theme.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:swipe_image_gallery/swipe_image_gallery.dart';
 
 @RoutePage()
 class InquiryFormPage extends StatefulWidget {
@@ -52,18 +53,18 @@ class _InquiryFormPageState extends State<InquiryFormPage> {
       child: BlocListener<InquiryFormCubit, InquiryFormState>(
         listener: (context, state) {
           state.maybeWhen(
-                  orElse: () {},
-                  loading: () => context.showLoadingIndicator(),
-                  failure: (msg) {
-                     context.hideLoading();
-                    context.showSnackbar(title: "Error", message: msg, error: true);
-                  },
-                  success: () {
-                    context.hideLoading();
-                    context.showSnackbar(title: "Sukses", message: "Success Submit Inquiry");
-                    context.route.maybePop();
-                  },
-                );
+            orElse: () {},
+            loading: () => context.showLoadingIndicator(),
+            failure: (msg) {
+              context.hideLoading();
+              context.showSnackbar(title: "Error", message: msg, error: true);
+            },
+            success: () {
+              context.hideLoading();
+              context.showSnackbar(title: "Sukses", message: "Success Submit Inquiry");
+              context.route.maybePop();
+            },
+          );
         },
         child: Scaffold(
           backgroundColor: Colors.white,
@@ -136,6 +137,27 @@ class _InquiryFormPageState extends State<InquiryFormPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
+                    images.isNotEmpty
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Attachment Image',
+                                style: CustomTextTheme.paragraph1,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  var assets = images.map((e) => Image(image: FileImage(File(e!.path)))).toList();
+                                  SwipeImageGallery(context: context, children: assets).show();
+                                },
+                                child: Text(
+                                  'See All',
+                                  style: CustomTextTheme.paragraph1.copyWith(color: Colors.blue),
+                                ),
+                              )
+                            ],
+                          )
+                        : Container(),
                     SizedBox(
                       height: images.isNotEmpty ? 100 : 0,
                       child: ListView(
