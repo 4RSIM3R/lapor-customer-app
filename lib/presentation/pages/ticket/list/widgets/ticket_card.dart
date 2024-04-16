@@ -1,4 +1,5 @@
 import 'package:appflowy_board/appflowy_board.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:next_starter/data/models/ticket/ticket_model.dart';
 import 'package:next_starter/presentation/components/button/primary_button.dart';
@@ -52,16 +53,6 @@ class TicketCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                       decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
                       child: Text(
-                        'UNIT_ID_HERE',
-                        style: CustomTextTheme.caption.copyWith(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ).expand(),
-                    const SizedBox(width: 4),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                      decoration: BoxDecoration(color: ColorTheme.primary, borderRadius: BorderRadius.circular(4)),
-                      child: Text(
                         '${model.site?.name}',
                         style: CustomTextTheme.caption.copyWith(color: Colors.white),
                         overflow: TextOverflow.ellipsis,
@@ -79,8 +70,29 @@ class TicketCard extends StatelessWidget {
                       isSmall: true,
                       backgroundColor: Colors.red,
                       onTap: () {
-                        onChange(model, 'CANCEL');
-                      },  
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Confirmation'),
+                            content: const Text('Are your want to cancel this ticket?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  context.router.maybePop();
+                                },
+                                child: const Text('Cancel', style: TextStyle(color: ColorTheme.primary)),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  context.router.maybePop();
+                                  onChange(model, 'CANCEL');
+                                },
+                                child: const Text('Okay', style: TextStyle(color: ColorTheme.primary)),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ).expand(),
                     const SizedBox(width: 4),
                     PrimaryButton(
@@ -88,7 +100,28 @@ class TicketCard extends StatelessWidget {
                       isSmall: true,
                       backgroundColor: ColorTheme.primary,
                       onTap: () {
-                        onChange(model, 'CUSTOMER_APPROVED');
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Confirmation'),
+                            content: const Text('Are your want to accept this ticket?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  context.router.maybePop();
+                                },
+                                child: const Text('Cancel', style: TextStyle(color: ColorTheme.primary)),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  context.router.maybePop();
+                                  onChange(model, 'CUSTOMER_APPROVED');
+                                },
+                                child: const Text('Okay', style: TextStyle(color: ColorTheme.primary)),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     ).expand(),
                   ],

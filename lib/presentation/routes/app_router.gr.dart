@@ -111,12 +111,6 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
-    TicketFormRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const TicketFormPage(),
-      );
-    },
     TicketListRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -420,20 +414,6 @@ class TicketDetailRouteArgs {
   String toString() {
     return 'TicketDetailRouteArgs{key: $key, ticketId: $ticketId}';
   }
-}
-
-/// generated route for
-/// [TicketFormPage]
-class TicketFormRoute extends PageRouteInfo<void> {
-  const TicketFormRoute({List<PageRouteInfo>? children})
-      : super(
-          TicketFormRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'TicketFormRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

@@ -7,7 +7,6 @@ import 'package:next_starter/presentation/pages/profile/main/profile_main_page.d
 import 'package:next_starter/presentation/pages/profile/site/profile_site_page.dart';
 import 'package:next_starter/presentation/pages/profile/unit/profile_unit_page.dart';
 import 'package:next_starter/presentation/pages/ticket/detail/ticket_detail_page.dart';
-import 'package:next_starter/presentation/pages/ticket/form/ticket_form_page.dart';
 import 'package:next_starter/presentation/pages/ticket/list/ticket_list_page.dart';
 
 import '../pages/inquiry/list/inquiry_list_page.dart';
@@ -40,7 +39,6 @@ class AppRouter extends _$AppRouter {
       ],
     ),
     // Ticket
-    AutoRoute(page: TicketFormRoute.page),
     AutoRoute(page: TicketDetailRoute.page),
     // Inquiry
     AutoRoute(page: InquiryFormRoute.page),
