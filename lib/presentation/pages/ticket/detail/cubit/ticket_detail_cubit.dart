@@ -13,16 +13,14 @@ class TicketDetailCubit extends Cubit<TicketDetailState> {
 
   final TicketRepository repository;
 
-  
   Future<void> get({required id}) async {
     emit(const TicketDetailState.loading());
 
-    final response = await repository.getTicketDetail(ticketId: id);
+    final response = await repository.getTicketDetail(id: id);
 
     response.fold(
       (l) => emit(TicketDetailState.failure(l.message)),
       (r) => emit(TicketDetailState.success(r)),
     );
   }
-
 }

@@ -6,10 +6,16 @@ import 'package:next_starter/presentation/theme/theme.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class TicketCard extends StatelessWidget {
-  const TicketCard({super.key, required this.groupData, required this.model});
+  const TicketCard({
+    super.key,
+    required this.groupData,
+    required this.model,
+    required this.onChange,
+  });
 
   final AppFlowyGroupData<dynamic> groupData;
   final TicketModel model;
+  final Function(TicketModel model, dynamic status) onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +78,18 @@ class TicketCard extends StatelessWidget {
                       title: 'Reject',
                       isSmall: true,
                       backgroundColor: Colors.red,
-                      onTap: () {},
+                      onTap: () {
+                        onChange(model, 'CANCEL');
+                      },  
                     ).expand(),
                     const SizedBox(width: 4),
                     PrimaryButton(
                       title: 'Accept',
                       isSmall: true,
                       backgroundColor: ColorTheme.primary,
-                      onTap: () {},
+                      onTap: () {
+                        onChange(model, 'CUSTOMER_APPROVED');
+                      },
                     ).expand(),
                   ],
                 )

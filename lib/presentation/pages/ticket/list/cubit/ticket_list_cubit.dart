@@ -23,4 +23,15 @@ class TicketListCubit extends Cubit<TicketListState> {
       (r) => emit(TicketListState.success(r)),
     );
   }
+
+  Future<void> update({required id, required status}) async {
+    emit(const TicketListState.loading());
+
+    final response = await repository.updateTicket(id: id, status: status);
+
+    response.fold(
+      (l) => emit(TicketListState.failure(l.message)),
+      (r) => get(),
+    );
+  }
 }

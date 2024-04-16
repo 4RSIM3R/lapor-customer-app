@@ -18,9 +18,16 @@ class TicketRepository extends BaseRepository {
     );
   }
 
-  EitherResponse<TicketDetailModel> getTicketDetail({required ticketId}) {
+  EitherResponse<TicketDetailModel> getTicketDetail({required id}) {
     return handleNetworkCall(
-      call: remote.getDetailTicket(ticketId: ticketId),
+      call: remote.getDetailTicket(id: id),
+      onSuccess: (r) => r,
+    );
+  }
+
+  EitherResponse<void> updateTicket({required id, required status}) {
+    return handleNetworkCall(
+      call: remote.updateTicket(id: id, status: status),
       onSuccess: (r) => r,
     );
   }

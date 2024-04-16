@@ -129,7 +129,13 @@ class _TicketListPageState extends State<TicketListPage> {
                         onTap: () {
                           context.router.push(TicketDetailRoute(ticketId: 1));
                         },
-                        child: TicketCard(groupData: groupData, model: textItem.model),
+                        child: TicketCard(
+                          groupData: groupData,
+                          model: textItem.model,
+                          onChange: (model, status) {
+                            bloc.update(id: model.id, status: status);
+                          },
+                        ),
                       ),
                     );
                   },

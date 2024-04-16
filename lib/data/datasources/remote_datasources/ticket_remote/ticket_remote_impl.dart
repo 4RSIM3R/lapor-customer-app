@@ -14,18 +14,29 @@ class TicketRemoteImpl extends BaseDioRemoteSource implements TicketRemote {
     return networkRequest(
       isAuth: true,
       request: (dio) => dio.get(ApiPath.ticket, queryParameters: {'start': start, 'end': end}),
-      onResponse: (json) => json != null
-          ? (json['data'] as List).map<TicketModel>((post) => TicketModel.fromJson(post)).toList()
-          : [],
+      onResponse: (json) =>
+          json != null ? (json['data'] as List).map<TicketModel>((post) => TicketModel.fromJson(post)).toList() : [],
     );
   }
 
   @override
-  Future<TicketDetailModel> getDetailTicket({required ticketId}) {
+  Future<TicketDetailModel> getDetailTicket({required id}) {
     return networkRequest(
       isAuth: true,
-      request: (dio) => dio.get('${ApiPath.ticketDetail}/$ticketId'),
+      request: (dio) => dio.get('${ApiPath.ticketDetail}/$id'),
       onResponse: (json) => TicketDetailModel.fromJson(json['data']),
+    );
+  }
+
+  @override
+  Future<void> updateTicket({required id, required status}) async {
+    return networkRequest(
+      isAuth: true,
+      request: (dio) => dio.post(
+        '${ApiPath.ticketUpdate}/$id',
+        data: {'status': status},
+      ),
+      onResponse: (json) => true,
     );
   }
 }
